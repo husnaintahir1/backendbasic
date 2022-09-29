@@ -1,5 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 const User = db.user;
 const Role = db.role;
 
@@ -8,12 +10,19 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.signup = async(req, res) => {
   // Save User to Database
+
+    const customer= await stripe.customers.create({
+      email:req.body.email
+    })
+    console.log(customer,"CUSTOMERRRRRRRRR")
+
   User.create({
     username: req.body.username,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: bcrypt.hashSync(req.body.password, 8),
+    stripeCustomerId:customer.id
   })
     .then(user => {
       if (req.body.roles) {
@@ -77,7 +86,8 @@ exports.signin = (req, res) => {
           username: user.username,
           email: user.email,
           roles: authorities,
-          accessToken: token
+          accessToken: token,
+          stripeCustomerId:user.stripeCustomerId
         });
       });
     })

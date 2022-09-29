@@ -1,3 +1,7 @@
+
+require('dotenv').config()
+
+
 const express = require("express");
 const cors = require("cors");
 
@@ -45,6 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/project.routes')(app);
+require('./app/routes/subs.routes')(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

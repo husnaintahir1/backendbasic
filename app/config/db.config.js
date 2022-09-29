@@ -1,8 +1,8 @@
 module.exports = {
-    HOST: "bakereedb.conj5xnbu8sn.us-east-2.rds.amazonaws.com",
-    USER: "root",
-    PASSWORD: "bakeree123",
-    DB: "bakereedb",
+    HOST: process.env.DB_HOST,
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASSWORD,
+    DB: process.env.NAME,
     dialect: "mysql",
     pool: {
       max: 5,
