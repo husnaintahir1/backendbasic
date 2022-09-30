@@ -19,9 +19,40 @@ const { user } = require("../models");
 
 exports.getPrices = async (req, res) => {
     // Save User to Database
-    const prices=await stripe.prices?.list()
-    console.log(prices,"PRICESSSS")
-    res.json(prices);
+    const {data:products}=await stripe.products?.list()
+    const {data:prices}=await stripe.prices?.list()
+    let formulatedData=[]
+    for (let i = 0; i < products.length; i++) {
+            for (let j = 0; j < prices.length; j++) {
+              if(products[i].id===prices[j].product){
+
+
+                products[i].priceItem=prices[j]
+                console.log(products[i],"asdasdsaasd",prices[j])
+              }
+              
+            }
+      
+    }
+    // console.log(products,"PRICESSSS",prices)
+    res.json(products);
+    // res.send("prices")
+      
+    
+  };
+
+  exports.getSubsList = async (req, res) => {
+    // Save User to Database
+
+    const customerId=req.params.id
+     const subscriptions=await stripe.subscriptions.list({
+    customer:customerId,
+    status:"all",
+    expand:["data.default_payment_method"]
+})
+    
+    // console.log(products,"PRICESSSS",prices)
+    res.json(subscriptions);
     // res.send("prices")
       
     

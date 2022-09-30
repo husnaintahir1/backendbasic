@@ -21,6 +21,21 @@ module.exports = function(app) {
     controller.createSession
   );
 
+  app.get(
+    "/api/subscriptionList/:id",
+    [authJwt.verifyToken],
+    controller.getSubsList
+  );
+
+
+
+//   const subscriptions=await stripe.subscriptions.list({
+//     customer:user.stripeCustomerId,
+//     status:"all",
+//     expand:["data.default_payment_method"]
+// })
+
+
 //   app.get(
 //     "/api/project/getProject",
 //     [authJwt.verifyToken],
