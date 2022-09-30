@@ -50,6 +50,11 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/project.routes')(app);
 require('./app/routes/subs.routes')(app);
+
+app.get('/api/test', (req, res) => {
+  console.log('connection test successfull')
+  res.send('connected')
+})
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
