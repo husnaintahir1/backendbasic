@@ -68,8 +68,8 @@ exports.getPrices = async (req, res) => {
             price:req.body.priceId,
             quantity:1
         }],
-        success_url:"http://localhost:8081/projects",
-        cancel_url:"http://localhost:8081/Billing",
+        success_url:"http://3.130.180.119/projects",
+        cancel_url:"http://3.130.180.119/Billing",
         customer:user.stripeCustomerId
     })
       
