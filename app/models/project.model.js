@@ -6,6 +6,15 @@ module.exports = (sequelize, Sequelize) => {
       CID: {
         type: Sequelize.STRING
       },
+      count: {
+        type: Sequelize.INTEGER
+      },
+      type: {
+        type: Sequelize.STRING
+      },
+      size: {
+        type: Sequelize.STRING
+      },
       created_at: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),

@@ -27,15 +27,32 @@ exports.getPrices = async (req, res) => {
               if(products[i].id===prices[j].product){
 
 
-                products[i].priceItem=prices[j]
-                console.log(products[i],"asdasdsaasd",prices[j])
+                // products[i].priceItem=prices[j]
+
+                formulatedData.push({
+                  productId:products[i].id,
+                  object:products[i].object,
+                  active:products[i].active,
+                  default_price:products[i].default_price,
+                  name:products[i].name,
+                  description:products[i].description,
+                  priceItem:{
+                      id:prices[j].id,
+                      object:prices[j].object,
+                      currency:prices[j].currency,
+                      nickname:prices[j].nickname,
+                      product:prices[j].product,
+                      unit_amount:prices[j].unit_amount
+                  }
+                  
+                })
               }
               
             }
       
     }
     // console.log(products,"PRICESSSS",prices)
-    res.json(products);
+    res.json(formulatedData);
     // res.send("prices")
       
     
@@ -57,10 +74,33 @@ exports.getPrices = async (req, res) => {
       
     
   };
+
+  exports.updateSubscription = async (req, res) => {
+    // Save User to Database
+
+    let {subscriptionId,priceId}=req.body
+   
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const  update= await stripe.subscriptions.update(subscriptionId, {
+      cancel_at_period_end: false,
+      // proration_behavior: 'create_prorations',
+      proration_behavior: 'always_invoice',
+      items: [{
+        id: subscription.items.data[0].id,
+        price: priceId,
+      }]
+    });
+    
+   
+    res.json(update);
+    
+      
+    
+  };
   exports.createSession = async (req, res) => {
     // Save User to Database
 
-    const user= await await User.findOne({ where: { id: req.body.id } })
+    const user=  await User.findOne({ where: { id: req.body.id } })
     const session=await stripe.checkout.sessions.create({
         mode:"subscription",
         payment_method_types:["card"],

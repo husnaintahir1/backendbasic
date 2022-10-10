@@ -17,7 +17,10 @@ exports.createProject = async (req, res) => {
       const project = await Project.create({
         name: req.body.name,
         CID: req.body.CID,
-        userId:req.body.userId
+        userId:req.body.userId,
+        type:req.body.type,
+        count:req.body.count,
+        size:req.body.size
       });
   
      

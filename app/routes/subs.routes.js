@@ -27,6 +27,11 @@ module.exports = function(app) {
     controller.getSubsList
   );
 
+  app.post(
+    "/api/update_subscription/",
+    [authJwt.verifyToken],
+    controller.updateSubscription
+  );
 
 
 //   const subscriptions=await stripe.subscriptions.list({
