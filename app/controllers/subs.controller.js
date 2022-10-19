@@ -108,8 +108,8 @@ exports.getPrices = async (req, res) => {
             price:req.body.priceId,
             quantity:1
         }],
-        success_url:"http://3.130.180.119/projects",
-        cancel_url:"http://3.130.180.119/Billing",
+        success_url:"https://ipfs.bakeree.io/projects",
+        cancel_url:"https://ipfs.bakeree.io/Billing",
         customer:user.stripeCustomerId
     })
       
