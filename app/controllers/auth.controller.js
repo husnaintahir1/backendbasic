@@ -141,7 +141,7 @@ exports.forgotPassword = (req, res) => {
       subject: 'Sending with SendGrid is Fun',
       text: 'and easy to do anywhere, even with Node.js',
       // html: "<strong>" +'To reset your password, please click the link below.\n\nhttps://'+process.env.DOMAIN+'/user/reset-password?token='+encodeURIComponent(token)+'&email='+req.body.email + "</strong>"
-      html: "<strong>" +'To reset your password, please click the link below.\n\n'+"http://localhost:8081/"+'/user/reset-password?token='+encodeURIComponent(token.token)+'&email='+req.body.email + "</strong>"
+      html: "<strong>" +'To reset your password, please click the link below.\n\n'+"http://localhost:8081"+'/user/reset-password?token='+encodeURIComponent(token.token)+'&email='+req.body.email + "</strong>"
     }
 
   //send email
