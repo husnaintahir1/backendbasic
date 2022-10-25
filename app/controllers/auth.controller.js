@@ -214,13 +214,13 @@ exports.resetPassword = async(req, res) => {
   * function checks if password is >= 8 chars, alphanumeric,
   * has special chars, etc)
   **/
- 
+      const decodedToken=decodeURIComponent(req.body.token)
  
   var record = await ResetToken.findOne({
     where: {
       email: req.body.email,
       expiration: { [Op.gt]: db.Sequelize.fn('CURDATE')},
-      token: req.body.token,
+      token: decodedToken,
       used: 0
     }
   });
