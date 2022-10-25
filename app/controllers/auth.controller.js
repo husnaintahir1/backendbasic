@@ -178,13 +178,13 @@ exports.resetPasswordGet = async(req, res) => {
         }
       });
 
-      // const decodedToken=decodeURIComponent(req.query.token)
-      
+      const decodedToken=decodeURIComponent(req.query.token)
+      console.log(decodedToken,"DECODED _T OKEN")
       var record = await ResetToken.findOne({
         where: {
           email: req.query.email,
           expiration: { [Op.gt]: db.Sequelize.fn('CURDATE')},
-          token: req.query.token,
+          token: decodedToken,
           used: 0
         }
       });
