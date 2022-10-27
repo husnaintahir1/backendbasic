@@ -46,3 +46,25 @@ exports.createProject = async (req, res) => {
       res.status(500).send({ message: error.message });
     }
   };
+
+exports.deleteProject= async (req,res) => {
+
+  try {
+    const project = await Project.destroy({
+      where: {
+        CID: req.params.cid,
+      }
+    })
+
+    if(project){
+      res.status(200).send({message: "Your project has been deleted successfully", project})
+    }else{
+      res.status(500).send({message: "Error", project: project })
+    }
+  } catch (error) {
+    res.status(500).send({message : error.message})
+  }
+  // const params = req.params.cid
+  
+  // res.status(200).json(params)
+}
